@@ -17,7 +17,12 @@ datExpr0 = datExpr0[-1, ]
 
 datExpr0[] <- lapply(datExpr0, function(x) as.numeric(as.character(x)))
 
-sampleTree <- hclust(dist(datExpr0), method = "average")
+normalize <- function(x) {
+        return ((x - min(x)) / (max(x) - min(x)))
+}
+datExpr0_normalized <- normalize(datExpr0)
+
+sampleTree <- hclust(dist(datExpr0_normalized), method = "average")
 
 sizeGrWindow(12,9)
 par(cex = 0.6);
@@ -28,7 +33,7 @@ plot(sampleTree, main = "Sample clustering to detect outliers", sub="", xlab="",
 # Choose a set of soft-thre   sholding powers
 powers <- c(c(1:10), seq(from = 12, to=20, by=2))
 # Call the network topology analysis function
-sft <- pickSoftThreshold(datExpr0, powerVector = powers, verbose = 5)
+sft <- pickSoftThreshold(datExpr0_normalized, powerVector = powers, verbose = 5)
 # Plot the results:
 sizeGrWindow(9, 5)
 par(mfrow = c(1,2));
@@ -48,28 +53,76 @@ plot(sft$fitIndices[,1], sft$fitIndices[,5],
 text(sft$fitIndices[,1], sft$fitIndices[,5], labels=powers, cex=cex1,col="red")
 
 
-net <- blockwiseModules(datExpr0, power = 6,
-                       TOMType = "unsigned", minModuleSize = 30,
+net <- blockwiseModules(datExpr0_normalized, power = 6, maxBlockSize = 10000, 
+                        TOMType = "unsigned", minModuleSize = 30,
                        reassignThreshold = 0, mergeCutHeight = 0.25,
                        numericLabels = TRUE, pamRespectsDendro = FALSE,
                        saveTOMs = TRUE,
-                       saveTOMFileBase = "femaleMouseTOM",
+                       saveTOMFileBase = "baseData",
                        verbose = 3)
 
 sizeGrWindow(12, 9)
 # Convert labels to colors for plotting
 mergedColors = labels2colors(net$colors)
-# Plot the dendrogram and the module colors underneath
-plotDendroAndColors(net$dendrograms[[1]], mergedColors[net$blockGenes[[1]]],
-                    "Module colors",
-                    dendroLabels = FALSE, hang = 0.03,
-                    addGuide = TRUE, guideHang = 0.05)
 
 moduleLabels <- net$colors
 moduleColors <- labels2colors(net$colors)
 MEs <- net$MEs;
 geneTree <- net$dendrograms[[1]];
-save(MEs, moduleLabels, moduleColors, geneTree,
-     file = "try1.RData")
+save(net, datExpr0, datExpr0_normalized, MEs, moduleLabels, moduleColors, geneTree,
+     file = "toLoad.RData")
 
-# to visualize: https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/Tutorials/FemaleLiver-05-Visualization.pdf
+load("toLoad.RData") 
+load("baseData-block.1.RData")
+load("baseData-block.2.RData")
+load("baseData-block.3.RData")
+load("baseData-block.4.RData")
+
+
+nGenes <- ncol(datExpr0_normalized)
+nSamples <- nrow(datExpr0_normalized)
+
+# Open a graphical window
+sizeGrWindow(6,6)
+# Plot the dendrogram and the module colors underneath for block 1
+plotDendroAndColors(net$dendrograms[[1]], moduleColors[net$blockGenes[[1]]],
+                    "Module colors", main = "Gene dendrogram and module colors in block 1", 
+                    dendroLabels = FALSE, hang = 0.03,
+                    addGuide = TRUE, guideHang = 0.05)
+# Plot the dendrogram and the module colors underneath for block 2
+plotDendroAndColors(net$dendrograms[[2]], moduleColors[net$blockGenes[[2]]],
+                    "Module colors", main = "Gene dendrogram and module colors in block 2", 
+                    dendroLabels = FALSE, hang = 0.03,
+                    addGuide = TRUE, guideHang = 0.05)
+# Plot the dendrogram and the module colors underneath for block 3
+plotDendroAndColors(net$dendrograms[[3]], moduleColors[net$blockGenes[[3]]],
+                    "Module colors", main = "Gene dendrogram and module colors in block 3", 
+                    dendroLabels = FALSE, hang = 0.03,
+                    addGuide = TRUE, guideHang = 0.05)
+# Plot the dendrogram and the module colors underneath for block 4
+plotDendroAndColors(net$dendrograms[[4]], moduleColors[net$blockGenes[[4]]],
+                    "Module colors", main = "Gene dendrogram and module colors in block 4", 
+                    dendroLabels = FALSE, hang = 0.03,
+                    addGuide = TRUE, guideHang = 0.05)
+
+
+geneNames <- colnames(datExpr0_normalized)
+
+for (color in moduleColors)
+{
+        tempList <- names(datExpr0_normalized)[moduleColors==color]
+        write.csv(tempList, paste(color,".csv"))
+        
+}
+
+
+
+#plotNetworkHeatmap(datExpr=datExpr0_normalized, 
+#                   plotGenes=colnames(datExpr0_normalized),
+#                   power=6,
+#                   networkType="unsigned",
+#                   main="Network Heatmap")
+
+
+#restGenes <- (moduleColors != "grey")
+#diss1 <- 1-TOMsimilarityFromExpr(datExpr0_normalized[,restGenes], power = 6)
