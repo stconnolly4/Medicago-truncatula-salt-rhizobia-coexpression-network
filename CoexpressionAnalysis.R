@@ -5,14 +5,14 @@ setwd(workingDir)
 library(WGCNA)
 options(stringsAsFactors = FALSE)
 
-# unfilteredData <- read.csv("PRJNA524006.ose2-lmin50-mm2.count.tsv", stringsAsFactors = FALSE) #LiverFemale3600.csv")#  /All_Unfiltered_50,443 genes.csv"
-unfilteredData <- read.table(file = "PRJNA524006.ose2-lmin50-mm2.count.tsv", sep = '\t', header = TRUE)
+unfilteredData <- read.csv("All_Unfiltered_50,443 genes.csv", stringsAsFactors = FALSE) #LiverFemale3600.csv")#  /All_Unfiltered_50,443 genes.csv"
+#unfilteredData <- read.table(file = "PRJNA524006.ose2-lmin50-mm2.count.tsv", sep = '\t', header = TRUE)
 dim(unfilteredData)
 names(unfilteredData)
 
 datExpr0 <- as.data.frame(t(unfilteredData))#[, -c(1)]))
 colnames(datExpr0) <- datExpr0[1, ]
-datExpr0 = datExpr0[-1, ] #for rna seq from jeanne, only have 1 of these
+#datExpr0 = datExpr0[-1, ] #for rna seq from jeanne, only have 1 of these
 datExpr0 = datExpr0[-1, ] 
 
 datExpr0[] <- lapply(datExpr0, function(x) as.numeric(as.character(x)))
@@ -29,8 +29,8 @@ plot(sampleTree, main = "Sample clustering to detect outliers", sub="", xlab="",
 powers <- c(c(1:10), seq(from = 12, to=20, by=2))
 # Call the network topology analysis function
 sft <- pickSoftThreshold(datExpr0, powerVector = powers, verbose = 5)
- # Plot the results:
-sizeGr .   Window(9, 5)
+# Plot the results:
+sizeGrWindow(9, 5)
 par(mfrow = c(1,2));
 cex1 = 0.9;
 # Scale-free topology fit index as a function of the soft-thresholding power
@@ -71,3 +71,5 @@ MEs <- net$MEs;
 geneTree <- net$dendrograms[[1]];
 save(MEs, moduleLabels, moduleColors, geneTree,
      file = "try1.RData")
+
+# to visualize: https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/Tutorials/FemaleLiver-05-Visualization.pdf
