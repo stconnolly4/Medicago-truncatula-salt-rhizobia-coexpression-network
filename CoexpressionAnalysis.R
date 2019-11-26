@@ -30,7 +30,7 @@ par(mar = c(0,4,2,0))
 plot(sampleTree, main = "Sample clustering to detect outliers", sub="", xlab="", cex.lab = 1.5,
      cex.axis = 1.5, cex.main = 2)
 
-# Choose a set of soft-thre   sholding powers
+# Choose a set of soft-thresholding powers
 powers <- c(c(1:10), seq(from = 12, to=20, by=2))
 # Call the network topology analysis function
 sft <- pickSoftThreshold(datExpr0_normalized, powerVector = powers, verbose = 5)
@@ -45,7 +45,7 @@ plot(sft$fitIndices[,1], -sign(sft$fitIndices[,3])*sft$fitIndices[,2],
 text(sft$fitIndices[,1], -sign(sft$fitIndices[,3])*sft$fitIndices[,2],
      labels=powers,cex=cex1,col="red");
 # this line corresponds to using an R^2 cut-off of h
-abline(h=0.90,col="red")
+abline(h=0.9,col="red")
 # Mean connectivity as a function of the soft-thresholding power
 plot(sft$fitIndices[,1], sft$fitIndices[,5],
      xlab="Soft Threshold (power)",ylab="Mean Connectivity", type="n",
@@ -54,12 +54,12 @@ text(sft$fitIndices[,1], sft$fitIndices[,5], labels=powers, cex=cex1,col="red")
 
 
 net <- blockwiseModules(datExpr0_normalized, power = 6, maxBlockSize = 10000, 
-                        TOMType = "unsigned", minModuleSize = 30,
+                        TOMType = "unsigned", minModuleSize = 200,
                        reassignThreshold = 0, mergeCutHeight = 0.25,
                        numericLabels = TRUE, pamRespectsDendro = FALSE,
                        saveTOMs = TRUE,
                        saveTOMFileBase = "baseData",
-                       verbose = 3)
+                       verbose = 3) #minModuleSize used to be 30
 
 sizeGrWindow(12, 9)
 # Convert labels to colors for plotting
