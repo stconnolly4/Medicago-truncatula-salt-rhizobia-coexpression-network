@@ -115,14 +115,82 @@ for (color in moduleColors)
         
 }
 
+# get adjacency matrix - note, will need to break into smaller blocks for visualization
+
+multiExpr = fixDataStructure(datExpr0_normalized, verbose = 0, indent = 0)
 
 
-#plotNetworkHeatmap(datExpr=datExpr0_normalized, 
-#                   plotGenes=colnames(datExpr0_normalized),
-#                   power=6,
-#                   networkType="unsigned",
-#                   main="Network Heatmap")
+blockwiseIndividualTOMs(
+        multiExpr,
+        multiWeights = NULL,
+        
+        # Data checking options
+        
+        checkMissingData = TRUE,
+        
+        # Blocking options
+        
+        blocks = NULL,
+        maxBlockSize = 10000,
+        blockSizePenaltyPower = 5,
+        nPreclusteringCenters = NULL,
+        randomSeed = 54321,
+        
+        # Network construction arguments: correlation options
+        
+        corType = "pearson",
+        maxPOutliers = 1,
+        quickCor = 0,
+        pearsonFallback = "individual",
+        cosineCorrelation = FALSE,
+        
+        # Adjacency function options
+        
+        power = 6,
+        networkType = "unsigned",
+        checkPower = TRUE,
+        replaceMissingAdjacencies = FALSE,
+        
+        # Topological overlap options
+        
+        TOMType = "unsigned",
+        TOMDenom = "min",
+        suppressTOMForZeroAdjacencies = FALSE,
+        suppressNegativeTOM = FALSE,
+        
+        # Save individual TOMs? If not, they will be returned in the session.
+        
+        saveTOMs = TRUE,
+        individualTOMFileNames = "individualTOM-Set%s-Block%b.RData",
+        
+        # General options
+        
+        nThreads = 0,
+        useInternalMatrixAlgebra = FALSE,
+        verbose = 2, indent = 0)
 
+load("individualTOM-Set1-Block1.RData")
+block1_matrix <- as.matrix(tomDS)
+dim(block1_matrix)
+write.csv(block1_matrix,file="block1.csv")
 
-#restGenes <- (moduleColors != "grey")
-#diss1 <- 1-TOMsimilarityFromExpr(datExpr0_normalized[,restGenes], power = 6)
+rm(list = ls())
+
+load("individualTOM-Set1-Block2.RData")
+block2_matrix <- as.matrix(tomDS)
+dim(block2_matrix)
+write.csv(block1_matrix,file="block2.csv")
+
+rm(list = ls())
+
+load("individualTOM-Set1-Block3.RData")
+block3_matrix <- as.matrix(tomDS)
+dim(block3_matrix)
+write.csv(block3_matrix,file="block3.csv")
+
+rm(list = ls())
+
+load("individualTOM-Set1-Block4.RData")
+block4_matrix <- as.matrix(tomDS)
+dim(block4_matrix)
+write.csv(block4_matrix,file="block4.csv")
