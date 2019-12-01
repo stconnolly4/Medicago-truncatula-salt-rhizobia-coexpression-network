@@ -27,4 +27,7 @@ toGraph.columns = ['var1', 'var2','value']
 toGraph_filtered = toGraph.loc[ (toGraph['value'] > .8) & (toGraph['var1'] != toGraph['var2']) ]
 G = nx.from_pandas_edgelist(toGraph_filtered, 'var1', 'var2')
 
-g = nx.draw(G, node_size=10)
+#g = nx.draw(G, node_size=10)
+
+# centrality
+nx.eigenvector_centrality(G)

@@ -194,3 +194,8 @@ load("individualTOM-Set1-Block4.RData")
 block4_matrix <- as.matrix(tomDS)
 dim(block4_matrix)
 write.csv(block4_matrix,file="block4.csv")
+
+hubs = chooseTopHubInEachModule(datExpr = datExpr0_normalized,
+                         colorh = moduleColors,
+                         power = 6,
+                         type = "unsigned")
