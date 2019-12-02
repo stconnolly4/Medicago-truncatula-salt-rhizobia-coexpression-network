@@ -5,14 +5,12 @@ setwd(workingDir)
 library(WGCNA)
 options(stringsAsFactors = FALSE)
 
-unfilteredData <- read.csv("All_Unfiltered_50,443 genes.csv", stringsAsFactors = FALSE) #LiverFemale3600.csv")#  /All_Unfiltered_50,443 genes.csv"
-#unfilteredData <- read.table(file = "PRJNA524006.ose2-lmin50-mm2.count.tsv", sep = '\t', header = TRUE)
+unfilteredData <- read.csv("rhizobia.csv") #("All_Unfiltered_50,443 genes.csv", stringsAsFactors = FALSE)
 dim(unfilteredData)
 names(unfilteredData)
 
 datExpr0 <- as.data.frame(t(unfilteredData))#[, -c(1)]))
 colnames(datExpr0) <- datExpr0[1, ]
-#datExpr0 = datExpr0[-1, ] #for rna seq from jeanne, only have 1 of these
 datExpr0 = datExpr0[-1, ] 
 
 datExpr0[] <- lapply(datExpr0, function(x) as.numeric(as.character(x)))
@@ -57,8 +55,8 @@ net <- blockwiseModules(datExpr0_normalized, power = 6, maxBlockSize = 10000,
                         TOMType = "unsigned", minModuleSize = 200,
                        reassignThreshold = 0, mergeCutHeight = 0.25,
                        numericLabels = TRUE, pamRespectsDendro = FALSE,
-                       saveTOMs = TRUE,
-                       saveTOMFileBase = "baseData",
+                       saveTOMs = TRUE, 
+                       saveTOMFileBase = "rhizobia-baseData",
                        verbose = 3) #minModuleSize used to be 30
 
 sizeGrWindow(12, 9)
@@ -70,14 +68,13 @@ moduleColors <- labels2colors(net$colors)
 MEs <- net$MEs;
 geneTree <- net$dendrograms[[1]];
 save(net, datExpr0, datExpr0_normalized, MEs, moduleLabels, moduleColors, geneTree,
-     file = "toLoad.RData")
+     file = "rhizobia-toLoad.RData")
 
-load("toLoad.RData") 
-load("baseData-block.1.RData")
-load("baseData-block.2.RData")
-load("baseData-block.3.RData")
-load("baseData-block.4.RData")
-
+load("no-rhizobia-toLoad.RData") 
+#load("baseData-block.1.RData")
+#load("baseData-block.2.RData")
+#load("baseData-block.3.RData")
+#load("baseData-block.4.RData")
 
 nGenes <- ncol(datExpr0_normalized)
 nSamples <- nrow(datExpr0_normalized)
@@ -86,22 +83,22 @@ nSamples <- nrow(datExpr0_normalized)
 sizeGrWindow(6,6)
 # Plot the dendrogram and the module colors underneath for block 1
 plotDendroAndColors(net$dendrograms[[1]], moduleColors[net$blockGenes[[1]]],
-                    "Module colors", main = "Gene dendrogram and module colors in block 1", 
+                    "Module colors", main = "Rhizobia - Gene dendrogram with modules - Block 1", 
                     dendroLabels = FALSE, hang = 0.03,
                     addGuide = TRUE, guideHang = 0.05)
 # Plot the dendrogram and the module colors underneath for block 2
 plotDendroAndColors(net$dendrograms[[2]], moduleColors[net$blockGenes[[2]]],
-                    "Module colors", main = "Gene dendrogram and module colors in block 2", 
+                    "Module colors", main = "Rhizobia - Gene dendrogram with modules - block 2", 
                     dendroLabels = FALSE, hang = 0.03,
                     addGuide = TRUE, guideHang = 0.05)
 # Plot the dendrogram and the module colors underneath for block 3
 plotDendroAndColors(net$dendrograms[[3]], moduleColors[net$blockGenes[[3]]],
-                    "Module colors", main = "Gene dendrogram and module colors in block 3", 
+                    "Module colors", main = "Rhizobia - Gene dendrogram with modules - block 3", 
                     dendroLabels = FALSE, hang = 0.03,
                     addGuide = TRUE, guideHang = 0.05)
 # Plot the dendrogram and the module colors underneath for block 4
 plotDendroAndColors(net$dendrograms[[4]], moduleColors[net$blockGenes[[4]]],
-                    "Module colors", main = "Gene dendrogram and module colors in block 4", 
+                    "Module colors", main = "Rhizobia - Gene dendrogram with modules - block 4", 
                     dendroLabels = FALSE, hang = 0.03,
                     addGuide = TRUE, guideHang = 0.05)
 
@@ -111,91 +108,41 @@ geneNames <- colnames(datExpr0_normalized)
 for (color in moduleColors)
 {
         tempList <- names(datExpr0_normalized)[moduleColors==color]
-        write.csv(tempList, paste(color,".csv"))
+        write.csv(tempList, paste(color,"Rhizobia.csv"))
         
 }
 
-# get adjacency matrix - note, will need to break into smaller blocks for visualization
+hubs <- chooseTopHubInEachModule(datExpr=datExpr0_normalized,
+                                 colorh=moduleColors,
+                                 power=6,
+                                 type="unsigned")
 
-multiExpr = fixDataStructure(datExpr0_normalized, verbose = 0, indent = 0)
+write.csv(hubs, "No-rhizobia-hubs.csv")
 
 
-blockwiseIndividualTOMs(
-        multiExpr,
-        multiWeights = NULL,
-        
-        # Data checking options
-        
-        checkMissingData = TRUE,
-        
-        # Blocking options
-        
-        blocks = NULL,
-        maxBlockSize = 10000,
-        blockSizePenaltyPower = 5,
-        nPreclusteringCenters = NULL,
-        randomSeed = 54321,
-        
-        # Network construction arguments: correlation options
-        
-        corType = "pearson",
-        maxPOutliers = 1,
-        quickCor = 0,
-        pearsonFallback = "individual",
-        cosineCorrelation = FALSE,
-        
-        # Adjacency function options
-        
-        power = 6,
-        networkType = "unsigned",
-        checkPower = TRUE,
-        replaceMissingAdjacencies = FALSE,
-        
-        # Topological overlap options
-        
-        TOMType = "unsigned",
-        TOMDenom = "min",
-        suppressTOMForZeroAdjacencies = FALSE,
-        suppressNegativeTOM = FALSE,
-        
-        # Save individual TOMs? If not, they will be returned in the session.
-        
-        saveTOMs = TRUE,
-        individualTOMFileNames = "individualTOM-Set%s-Block%b.RData",
-        
-        # General options
-        
-        nThreads = 0,
-        useInternalMatrixAlgebra = FALSE,
-        verbose = 2, indent = 0)
-
-load("individualTOM-Set1-Block1.RData")
-block1_matrix <- as.matrix(tomDS)
+load("no-rhizobia-baseData-block.1.RData")
+block1_matrix <- as.matrix(TOM)
 dim(block1_matrix)
-write.csv(block1_matrix,file="block1.csv")
+write.csv(block1_matrix,file="no-rhizobia-block1.csv")
 
 rm(list = ls())
 
-load("individualTOM-Set1-Block2.RData")
-block2_matrix <- as.matrix(tomDS)
+load("no-rhizobia-baseData-block.2.RData")
+block2_matrix <- as.matrix(TOM)
 dim(block2_matrix)
-write.csv(block1_matrix,file="block2.csv")
+write.csv(block2_matrix,file="no-rhizobia-block2.csv")
 
 rm(list = ls())
 
-load("individualTOM-Set1-Block3.RData")
-block3_matrix <- as.matrix(tomDS)
+load("no-rhizobia-baseData-block.3.RData")
+block3_matrix <- as.matrix(TOM)
 dim(block3_matrix)
-write.csv(block3_matrix,file="block3.csv")
+write.csv(block3_matrix,file="no-rhizobia-block3.csv")
 
 rm(list = ls())
 
-load("individualTOM-Set1-Block4.RData")
-block4_matrix <- as.matrix(tomDS)
+load("no-rhizobia-baseData-block.4.RData")
+block4_matrix <- as.matrix(TOM)
 dim(block4_matrix)
-write.csv(block4_matrix,file="block4.csv")
+write.csv(block4_matrix,file="no-rhizobia-block4.csv")
 
-hubs = chooseTopHubInEachModule(datExpr = datExpr0_normalized,
-                         colorh = moduleColors,
-                         power = 6,
-                         type = "unsigned")

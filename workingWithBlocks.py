@@ -30,4 +30,5 @@ G = nx.from_pandas_edgelist(toGraph_filtered, 'var1', 'var2')
 #g = nx.draw(G, node_size=10)
 
 # centrality
-nx.eigenvector_centrality(G)
+dictNodes = nx.eigenvector_centrality(G, max_iter=1000)
+deg = nx.degree(G)
