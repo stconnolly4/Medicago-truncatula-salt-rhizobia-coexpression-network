@@ -5,7 +5,7 @@ setwd(workingDir)
 library(WGCNA)
 options(stringsAsFactors = FALSE)
 
-unfilteredData <- read.csv("rhizobia.csv") #("All_Unfiltered_50,443 genes.csv", stringsAsFactors = FALSE)
+unfilteredData <- read.csv("salt.csv") #("All_Unfiltered_50,443 genes.csv", stringsAsFactors = FALSE)
 dim(unfilteredData)
 names(unfilteredData)
 
@@ -56,7 +56,7 @@ net <- blockwiseModules(datExpr0_normalized, power = 6, maxBlockSize = 10000,
                        reassignThreshold = 0, mergeCutHeight = 0.25,
                        numericLabels = TRUE, pamRespectsDendro = FALSE,
                        saveTOMs = TRUE, 
-                       saveTOMFileBase = "rhizobia-baseData",
+                       saveTOMFileBase = "salt-baseData",
                        verbose = 3) #minModuleSize used to be 30
 
 sizeGrWindow(12, 9)
@@ -70,7 +70,7 @@ geneTree <- net$dendrograms[[1]];
 save(net, datExpr0, datExpr0_normalized, MEs, moduleLabels, moduleColors, geneTree,
      file = "rhizobia-toLoad.RData")
 
-load("no-rhizobia-toLoad.RData") 
+load("no-salt-toLoad.RData") 
 #load("baseData-block.1.RData")
 #load("baseData-block.2.RData")
 #load("baseData-block.3.RData")
@@ -105,10 +105,11 @@ plotDendroAndColors(net$dendrograms[[4]], moduleColors[net$blockGenes[[4]]],
 
 geneNames <- colnames(datExpr0_normalized)
 
+
 for (color in moduleColors)
 {
         tempList <- names(datExpr0_normalized)[moduleColors==color]
-        write.csv(tempList, paste(color,"Rhizobia.csv"))
+        write.csv(tempList, paste(color,"no-salt.csv"))
         
 }
 
