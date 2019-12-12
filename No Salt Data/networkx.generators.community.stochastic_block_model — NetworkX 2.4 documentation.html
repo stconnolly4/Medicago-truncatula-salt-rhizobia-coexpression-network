@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<!-- saved from url=(0125)https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.stochastic_block_model.html -->
+<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface no-generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en" style=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="./networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation_files/modernizr.min.js.download"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="./networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation_files/documentation_options.js.download"></script>
+        <script type="text/javascript" src="./networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation_files/jquery.js.download"></script>
+        <script type="text/javascript" src="./networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation_files/underscore.js.download"></script>
+        <script type="text/javascript" src="./networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation_files/doctools.js.download"></script>
+        <script type="text/javascript" src="./networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation_files/language_data.js.download"></script>
+        <script type="text/javascript" src="./networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation_files/copybutton.js.download"></script>
+        <script async="async" type="text/javascript" src="./networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation_files/latest.js.download"></script>
+    
+    <script type="text/javascript" src="./networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation_files/theme.js.download"></script>
+
+    
+    <link rel="search" type="application/opensearchdescription+xml" title="Search within NetworkX 2.4 documentation" href="https://networkx.github.io/documentation/stable/_static/opensearch.xml">
+
+  
+  <link rel="stylesheet" href="./networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation_files/theme.css" type="text/css">
+  <link rel="stylesheet" href="./networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation_files/pygments.css" type="text/css">
+  <link rel="stylesheet" href="./networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation_files/gallery.css" type="text/css">
+    <link rel="index" title="Index" href="https://networkx.github.io/documentation/stable/genindex.html">
+    <link rel="search" title="Search" href="https://networkx.github.io/documentation/stable/search.html">
+    <link rel="next" title="networkx.generators.community.windmill_graph" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.windmill_graph.html">
+    <link rel="prev" title="networkx.generators.community.ring_of_cliques" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.ring_of_cliques.html"> 
+<script type="text/javascript" async="" src="./networkx.generators.community.stochastic_block_model — NetworkX 2.4 documentation_files/MathJax.js.download"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body class="wy-body-for-nav"><div id="MathJax_Message" style="display: none;"></div>
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://networkx.github.io/documentation/stable/index.html" class="icon icon-home"> NetworkX
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://networkx.github.io/documentation/stable/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://networkx.github.io/documentation/stable/install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://networkx.github.io/documentation/stable/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/index.html"><span class="toctree-expand"></span>Reference</a><ul class="">
+<li class="toctree-l2"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/classes/index.html">Graph types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/algorithms/index.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/functions.html">Functions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html"><span class="toctree-expand"></span>Graph generators</a><ul class="">
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.atlas">Atlas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.classic">Classic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.expanders">Expanders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.lattice">Lattice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.small">Small</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.random_graphs">Random Graphs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.duplication">Duplication Divergence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.degree_seq">Degree Sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.random_clustered">Random Clustered</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.directed">Directed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.geometric">Geometric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.line">Line Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.ego">Ego Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.stochastic">Stochastic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.internet_as_graphs">AS graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.intersection">Intersection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.social">Social Networks</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.community"><span class="toctree-expand"></span>Community</a><ul class="">
+<li class="toctree-l4"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.caveman_graph.html">networkx.generators.community.caveman_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.connected_caveman_graph.html">networkx.generators.community.connected_caveman_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.gaussian_random_partition_graph.html">networkx.generators.community.gaussian_random_partition_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.LFR_benchmark_graph.html">networkx.generators.community.LFR_benchmark_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.planted_partition_graph.html">networkx.generators.community.planted_partition_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.random_partition_graph.html">networkx.generators.community.random_partition_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.relaxed_caveman_graph.html">networkx.generators.community.relaxed_caveman_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.ring_of_cliques.html">networkx.generators.community.ring_of_cliques</a></li>
+<li class="toctree-l4 current"><a class="reference internal current" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.stochastic_block_model.html#">networkx.generators.community.stochastic_block_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.windmill_graph.html">networkx.generators.community.windmill_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.spectral_graph_forge">Spectral</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.trees">Trees</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.nonisomorphic_trees">Non Isomorphic Trees</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.triads">Triads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.joint_degree_seq">Joint Degree Sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.mycielski">Mycielski</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.harary_graph">Harary Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generators.html#module-networkx.generators.cographs">Cographs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/linalg.html">Linear algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/convert.html">Converting to and from other data formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/relabel.html">Relabeling nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/readwrite/index.html">Reading and writing graphs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/drawing.html">Drawing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/randomness.html">Randomness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/exceptions.html">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/utils.html">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://networkx.github.io/documentation/stable/developer/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://networkx.github.io/documentation/stable/news.html">Release Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://networkx.github.io/documentation/stable/license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://networkx.github.io/documentation/stable/credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://networkx.github.io/documentation/stable/citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://networkx.github.io/documentation/stable/bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://networkx.github.io/documentation/stable/auto_examples/index.html">Examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="https://networkx.github.io/documentation/stable/index.html">NetworkX</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="https://networkx.github.io/documentation/stable/index.html">Docs</a> »</li>
+        
+          <li><a href="https://networkx.github.io/documentation/stable/reference/index.html">Reference</a> »</li>
+        
+          <li><a href="https://networkx.github.io/documentation/stable/reference/generators.html">Graph generators</a> »</li>
+        
+      <li>networkx.generators.community.stochastic_block_model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="networkx-generators-community-stochastic-block-model">
+<h1>networkx.generators.community.stochastic_block_model<a class="headerlink" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.stochastic_block_model.html#networkx-generators-community-stochastic-block-model" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="networkx.generators.community.stochastic_block_model">
+<code class="sig-name descname">stochastic_block_model</code><span class="sig-paren">(</span><em class="sig-param">sizes</em>, <em class="sig-param">p</em>, <em class="sig-param">nodelist=None</em>, <em class="sig-param">seed=None</em>, <em class="sig-param">directed=False</em>, <em class="sig-param">selfloops=False</em>, <em class="sig-param">sparse=True</em><span class="sig-paren">)</span><a class="reference internal" href="https://networkx.github.io/documentation/stable/_modules/networkx/generators/community.html#stochastic_block_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.stochastic_block_model.html#networkx.generators.community.stochastic_block_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a stochastic block model graph.</p>
+<p>This model partitions the nodes in blocks of arbitrary sizes, and places
+edges between pairs of nodes independently, with a probability that depends
+on the blocks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sizes</strong> (<em>list of ints</em>) – Sizes of blocks</p></li>
+<li><p><strong>p</strong> (<em>list of list of floats</em>) – Element (r,s) gives the density of edges going from the nodes
+of group r to nodes of group s.
+p must match the number of groups (len(sizes) == len(p)),
+and it must be symmetric if the graph is undirected.</p></li>
+<li><p><strong>nodelist</strong> (<em>list, optional</em>) – The block tags are assigned according to the node identifiers
+in nodelist. If nodelist is None, then the ordering is the
+range [0,sum(sizes)-1].</p></li>
+<li><p><strong>seed</strong> (<em>integer, random_state, or None (default)</em>) – Indicator of random number generation state.
+See <a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/randomness.html#randomness"><span class="std std-ref">Randomness</span></a>.</p></li>
+<li><p><strong>directed</strong> (<em>boolean optional, default=False</em>) – Whether to create a directed graph or not.</p></li>
+<li><p><strong>selfloops</strong> (<em>boolean optional, default=False</em>) – Whether to include self-loops or not.</p></li>
+<li><p><strong>sparse</strong> (<em>boolean optional, default=True</em>) – Use the sparse heuristic to speed up the generator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>g</strong> – Stochastic block model graph of size sum(sizes)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>NetworkX Graph or <a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="networkx.DiGraph">DiGraph</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/exceptions.html#networkx.NetworkXError" title="networkx.NetworkXError"><strong>NetworkXError</strong></a> – If probabilities are not in [0,1].
+If the probability matrix is not square (directed case).
+If the probability matrix is not symmetric (undirected case).
+If the sizes list does not match nodelist or the probability matrix.
+If nodelist contains duplicate.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate" style="position: relative;"><div class="highlight"><span class="copybutton" title="Hide the prompts and output" style="cursor: pointer; position: absolute; top: 0px; right: 0px; border-color: rgb(64, 64, 64); border-style: none; border-width: 0px; color: rgb(64, 64, 64); font-family: monospace; padding-left: 0.2em; padding-right: 0.2em; border-radius: 0px 3px 0px 0px;">&gt;&gt;&gt;</span><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">75</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">300</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">probs</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">],</span>
+<span class="gp">... </span>         <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">],</span>
+<span class="gp">... </span>         <span class="p">[</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">stochastic_block_model</span><span class="p">(</span><span class="n">sizes</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="go">450</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">quotient_graph</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s1">'partition'</span><span class="p">],</span> <span class="n">relabel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">H</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">'density'</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">0.245</span>
+<span class="go">0.348</span>
+<span class="go">0.405</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">H</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s1">'weight'</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">sizes</span><span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="n">sizes</span><span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]]),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">0.051</span>
+<span class="go">0.022</span>
+<span class="go">0.07</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.random_partition_graph.html#networkx.generators.community.random_partition_graph" title="networkx.generators.community.random_partition_graph"><code class="xref py py-func docutils literal notranslate"><span class="pre">random_partition_graph()</span></code></a>, <a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.planted_partition_graph.html#networkx.generators.community.planted_partition_graph" title="networkx.generators.community.planted_partition_graph"><code class="xref py py-func docutils literal notranslate"><span class="pre">planted_partition_graph()</span></code></a>, <a class="reference internal" href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.gaussian_random_partition_graph.html#networkx.generators.community.gaussian_random_partition_graph" title="networkx.generators.community.gaussian_random_partition_graph"><code class="xref py py-func docutils literal notranslate"><span class="pre">gaussian_random_partition_graph()</span></code></a>, <code class="xref py py-func docutils literal notranslate"><span class="pre">gnp_random_graph()</span></code></p>
+</div>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id1"><span class="brackets">1</span></dt>
+<dd><p>Holland, P. W., Laskey, K. B., &amp; Leinhardt, S.,
+“Stochastic blockmodels: First steps”,
+Social networks, 5(2), 109-137, 1983.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.windmill_graph.html" class="btn btn-neutral float-right" title="networkx.generators.community.windmill_graph" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.ring_of_cliques.html" class="btn btn-neutral float-left" title="networkx.generators.community.ring_of_cliques" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr>
+
+  <div role="contentinfo">
+    <p>
+        © Copyright 2004-2019, NetworkX Developers
+      <span class="lastupdated">
+        Last updated on Oct 17, 2019.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+
+</body></html>
